@@ -1,0 +1,6 @@
+<ul>
+  <% @route.clients.each do |client| %>
+    <li><%= client.last_name %><%= link_to "Present", class: "btn" %><%= link_to "Not Present", class: "btn" %><%= link_to "No-Show", class: "btn" %></li>
+
+  <% end %>
+</ul>

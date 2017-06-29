@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: MyString
+  day: MyString
+  pickup_date: 2017-06-29
+  client: one
+
+two:
+  status: MyString
+  day: MyString
+  pickup_date: 2017-06-29
+  client: two
