@@ -68,6 +68,16 @@ new Vue({
 })
 </script>
 
+
+# Add the following code to a view
+# It will show you an example of how to make a
+# curl HTTP request with the proper authentication headers.
+# Be sure to actually use a working route and not "http://localhost:3000/api/v1/yada_yada"
+
+<% if admin_user_signed_in? %>
+  curl -X GET --header 'Authorization: Bearer <%= JWTWrapper.encode({ user_id: current_admin_user.id }) %>' 'http://localhost:3000/api/v1/yada_yada'
+<% end %>
+
 <ul>
   <% @route.clients.each do |client| %>
     <li><%= client.last_name %><%= link_to "Present", class: "btn" %><%= link_to "Not Present", class: "btn" %><%= link_to "No-Show", class: "btn" %></li>
