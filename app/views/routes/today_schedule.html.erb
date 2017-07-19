@@ -1,14 +1,42 @@
 <div id="locations">
-  <login v-if="token == null"></login>
+  <login v-if="token == ''"></login>
   <temperature v-else>Logged In</temperature>
 </div>
 
 <script type="text/x-template" id="temperature-template">
 <div>
-<h1>{{ temp }}F</h1>
-<p>{{ location }}</p>
+  <h1>{{ route_name }}</h1>
+  <ul class="collapsible popout" data-collapsible="accordion">
+    <li v-for="client in clients">
+      <div class="collapsible-header"><i class="material-icons"></i><h5>{{ client.first_name }} {{ client.last_name }}</h5> <i class="material-icons">location_on</i>{{ client.address }}</div>
+      <div class="collapsible-body">
+        <span><a class="waves-effect waves-light btn" href="#pickup-modal">Pickup</a></span>
+        <span><a class="waves-effect waves-light btn" href="#dropoff-modal">Dropoff</a></span>
+      </div>  
+    </li>
+  </ul>
+
+  <div id="pickup-modal" class="modal">
+    <div class="modal-content">
+      <span><button class="waves-effect waves-light btn" v-on:click="client_status('pickup', 'present')">Present</button></span>
+      <span><button class="waves-effect waves-light btn" v-on:click="client_status('pickup', 'not-present')">Not Present</button></span>
+      <span><button class="waves-effect waves-light btn" v-on:click="client_status('pickup', 'no-show')">No Show</button></span>
+    </div>
+  </div>
+
+  <div id="dropoff-modal" class="modal">
+    <div class="modal-content">
+      <span><button class="waves-effect waves-light btn" v-on:click="client_status('dropoff', 'present')">Present</button></span>
+      <span><button class="waves-effect waves-light btn" v-on:click="client_status('dropoff', 'not-present')">Not Present</button></span>
+      <span><button class="waves-effect waves-light btn" v-on:click="client_status('dropoff', 'no-show')">No Show</button></span>
+    </div>
+  </div>
 </div>
 </script>
+
+
+
+
 
 <script type="text/x-template" id="login-template">
 <form>
@@ -18,14 +46,15 @@
 </form>
 </script>
 
+<%= current_driver.try(:id) %>sdg
 <script>
 var state = {
-  token: localStorage.getItem("token")
+  token: "<%= JWTWrapper.encode({ driver_id: current_driver.id }) if current_driver %>"
 };
 Vue.component("temperature", {
   template: "#temperature-template",
   data: function() {
-    return {temp: null, location: null};
+    return {route_name: null, clients: null};
   },
   created: function() {
     this.fetchData();
@@ -34,13 +63,18 @@ Vue.component("temperature", {
     fetchData: function() {
       var self = this;
       $.ajax({
-        url: "/api/v1/locations/1",
+        url: "/api/v1/routes",
         beforeSend: function(xhr) { xhr.setRequestHeader("Authorization", "Bearer " + state.token); },
         success: function(response) {
-          self.temp = response.data.attributes.current.temp;
-          self.location = response.data.attributes.name;
+          console.log(response.clients);
+          self.route_name = response.name;
+          self.clients = response.clients;
         }
       });
+    },
+    client_status: function (type, status, event) {
+      alert( type + ' Client is ' + status + '!') 
+      $('#'+ type + '-modal').modal('close');   
     }
   }
 });
@@ -69,18 +103,13 @@ new Vue({
 </script>
 
 
+
 # Add the following code to a view
 # It will show you an example of how to make a
 # curl HTTP request with the proper authentication headers.
 # Be sure to actually use a working route and not "http://localhost:3000/api/v1/yada_yada"
 
 <% if admin_user_signed_in? %>
-  curl -X GET --header 'Authorization: Bearer <%= JWTWrapper.encode({ user_id: current_admin_user.id }) %>' 'http://localhost:3000/api/v1/yada_yada'
+  curl -X GET --header 'Authorization: Bearer <%= JWTWrapper.encode({ driver_id: current_driver.try(:id) }) %>' 'http://localhost:3000/api/v1/yada_yada'
 <% end %>
 
-<ul>
-  <% @route.clients.each do |client| %>
-    <li><%= client.last_name %><%= link_to "Present", class: "btn" %><%= link_to "Not Present", class: "btn" %><%= link_to "No-Show", class: "btn" %></li>
-
-  <% end %>
-</ul>

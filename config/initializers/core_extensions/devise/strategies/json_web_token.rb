@@ -7,9 +7,9 @@ module Devise
 
       def authenticate!
         return fail! unless claims
-        return fail! unless claims.has_key?('user_id')
+        return fail! unless claims.has_key?('driver_id')
 
-        success! User.find_by_id claims['user_id']
+        success! Driver.find_by_id claims['driver_id']
       end
 
       protected ######################## PROTECTED #############################

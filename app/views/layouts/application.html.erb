@@ -4,13 +4,14 @@
     <title>Uec</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <%= javascript_include_tag 'application' %>
-    <%= javascript_include_tag 'https://unpkg.com/vue/dist/vue.js', 'application' %>
-    <%= javascript_pack_tag 'application' %>
+    <%= javascript_pack_tag 'hello_vue' %>
   </head>
 
   <body>
     <%= yield %>
+    
   </body>
 </html>

@@ -10,5 +10,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require vue
+//= require vue-router
 //= require rails-ujs
+//= require jquery
+//= require materialize
 //= require_tree .
+
+$(document).ready(function(){
+  // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+  $('.modal').modal();
+});

@@ -281,6 +281,6 @@ Devise.setup do |config|
 
     # Adding the new JWT Strategy to the top of Warden's list,
     # Scoped by what Devise would scope (typically :user)
-    manager.default_strategies(scope: :user).unshift :jwt
+    manager.default_strategies(scope: :driver).unshift :jwt
   end  
 end
