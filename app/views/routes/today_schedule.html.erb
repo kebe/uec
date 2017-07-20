@@ -5,7 +5,9 @@
 
 <script type="text/x-template" id="route-template">
 <div>
-  <h1>{{ route.name }} Route</h1>
+  <div>
+    <h1><i class="material-icons">drive_eta</i>Route: {{ route.name }}</h1>
+  </div>
   <ul class="collapsible popout" data-collapsible="accordion">
     <li v-for="client in clients">
       <div class="collapsible-header"><i class="material-icons"></i><h1>{{ client.first_name }} {{ client.last_name }}</h1> <i class="material-icons">location_on</i><h5>{{ client.address }}</h5></div>
@@ -25,7 +27,7 @@
               <tr v-for="operation in client.operations">
                 <td>{{operation.op_type}}</td>
                 <td>{{operation.status}}</td>
-                <td>{{operation.time}}</td>
+                <td>{{operation.time  }}</td>
                 <td>{{operation.wheelchair}}</td>
               </tr>
             </tbody>
@@ -65,6 +67,7 @@
 </script>
 
 <script>
+
 var state = {
   token: "<%= JWTWrapper.encode({ driver_id: current_driver.id }) if current_driver %>"
 };
@@ -116,7 +119,15 @@ Vue.component("route", {
           console.log("operation is a success");
         }
       });
-      $('#'+ type + '-modal').modal('close');   
+
+      $('#'+ type + '-modal').modal('close');  
+      this.fetchData(); 
+    }
+  },
+
+  filters: {
+    time_format: function(value){
+      return //moment(String(value)).format('hh:mm')
     }
   }
 });
