@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :operations
   devise_for :drivers
   resources :dropoffs
   resources :pickups
@@ -6,6 +7,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      post 'create_operation' => 'operations#create_operation'
       get 'routes' => 'routes#index'
     end
   end

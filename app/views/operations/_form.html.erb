@@ -1,0 +1,52 @@
+<%= form_with(model: operation, local: true) do |form| %>
+  <% if operation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(operation.errors.count, "error") %> prohibited this operation from being saved:</h2>
+
+      <ul>
+      <% operation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :type %>
+    <%= form.text_field :type, id: :operation_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :time %>
+    <%= form.datetime_select :time, id: :operation_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :client_id %>
+    <%= form.text_field :client_id, id: :operation_client_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :driver_id %>
+    <%= form.text_field :driver_id, id: :operation_driver_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status, id: :operation_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :helper %>
+    <%= form.text_field :helper, id: :operation_helper %>
+  </div>
+
+  <div class="field">
+    <%= form.label :wheelchair %>
+    <%= form.check_box :wheelchair, id: :operation_wheelchair %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

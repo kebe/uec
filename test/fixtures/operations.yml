@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  time: 2017-07-19 11:25:13
+  client: one
+  driver: one
+  status: MyString
+  helper: MyString
+  wheelchair: false
+
+two:
+  type: 
+  time: 2017-07-19 11:25:13
+  client: two
+  driver: two
+  status: MyString
+  helper: MyString
+  wheelchair: false

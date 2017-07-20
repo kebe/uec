@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @operation.type %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @operation.time %>
+</p>
+
+<p>
+  <strong>Client:</strong>
+  <%= @operation.client %>
+</p>
+
+<p>
+  <strong>Driver:</strong>
+  <%= @operation.driver %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @operation.status %>
+</p>
+
+<p>
+  <strong>Helper:</strong>
+  <%= @operation.helper %>
+</p>
+
+<p>
+  <strong>Wheelchair:</strong>
+  <%= @operation.wheelchair %>
+</p>
+
+<%= link_to 'Edit', edit_operation_path(@operation) %> |
+<%= link_to 'Back', operations_path %>
