@@ -8,11 +8,11 @@
   <h1>{{ route.name }} Route</h1>
   <ul class="collapsible popout" data-collapsible="accordion">
     <li v-for="client in clients">
-      <div class="collapsible-header"><i class="material-icons"></i><h2>{{ client.first_name }} {{ client.last_name }}</h2> <i class="material-icons">location_on</i><h5>{{ client.address }}</h5></div>
+      <div class="collapsible-header"><i class="material-icons"></i><h1>{{ client.first_name }} {{ client.last_name }}</h1> <i class="material-icons">location_on</i><h5>{{ client.address }}</h5></div>
       <div class="collapsible-body">
-        <span><a :id="'pu-'+client.id" class="waves-effect waves-light btn" v-on:click="open_pickup_modal($event)">Pickup</a></span>
-        <span><a :id="'do-'+client.id" class="waves-effect waves-light btn" v-on:click="open_dropoff_modal($event)">Dropoff</a></span>
-          <table class="striped">
+        <span><a :id="'pu-'+client.id" class="waves-effect waves-light btn-large" v-on:click="open_pickup_modal($event)">Pickup</a></span>
+        <span><a :id="'do-'+client.id" class="waves-effect waves-light btn-large" v-on:click="open_dropoff_modal($event)">Dropoff</a></span>
+          <table class="striped" style="font-size: 1.5em;">
             <thead>
               <tr>
                   <th>Type</th>
@@ -36,17 +36,17 @@
 
   <div id="pickup-modal" class="modal">
     <div class="modal-content">
-      <span><button class="waves-effect waves-light btn" v-on:click="client_status('pickup', 'present', $event)">Present</button></span>
-      <span><button class="waves-effect waves-light btn" v-on:click="client_status('pickup', 'not-present', $event)">Not Present</button></span>
-      <span><button class="waves-effect waves-light btn" v-on:click="client_status('pickup', 'no-show', $event)">No Show</button></span>
+      <span><button class="waves-effect waves-light btn-large" v-on:click="client_status('pickup', 'present', $event)">Present</button></span>
+      <span><button class="waves-effect waves-light btn-large" v-on:click="client_status('pickup', 'not-present', $event)">Not Present</button></span>
+      <span><button class="waves-effect waves-light btn-large" v-on:click="client_status('pickup', 'no-show', $event)">No Show</button></span>
     </div>
   </div>
 
   <div id="dropoff-modal" class="modal">
     <div class="modal-content">
-      <span><button class="waves-effect waves-light btn" v-on:click="client_status('dropoff', 'present', $event)">Present</button></span>
-      <span><button class="waves-effect waves-light btn" v-on:click="client_status('dropoff', 'not-present', $event)">Not Present</button></span>
-      <span><button class="waves-effect waves-light btn" v-on:click="client_status('dropoff', 'no-show', $event)">No Show</button></span>
+      <span><button class="waves-effect waves-light btn-large" v-on:click="client_status('dropoff', 'present', $event)">Present</button></span>
+      <span><button class="waves-effect waves-light btn-large" v-on:click="client_status('dropoff', 'not-present', $event)">Not Present</button></span>
+      <span><button class="waves-effect waves-light btn-large" v-on:click="client_status('dropoff', 'no-show', $event)">No Show</button></span>
     </div>
   </div>
 </div>
