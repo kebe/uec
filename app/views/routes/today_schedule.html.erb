@@ -5,14 +5,12 @@
 
 <script type="text/x-template" id="route-template">
 <div>
-  <div>
-    <h1><i class="material-icons">drive_eta</i>Route: {{ route.name }}</h1>
-  </div>
+  <h1 align="center"><i class="material-icons" style="font-size:2.9rem">drive_eta</i> {{ route.name }} Route</h1>
   <ul class="collapsible popout" data-collapsible="accordion">
     <li v-for="client in clients">
-      <div class="collapsible-header"><i class="material-icons"></i><h1>{{ client.first_name }} {{ client.last_name }}</h1> <i class="material-icons">location_on</i><h5>{{ client.address }}</h5></div>
+      <div class="collapsible-header"><i class="material-icons"></i><h1>{{ client.first_name }} {{ client.last_name }}</h1> <h5><i class="material-icons" style="font-size:2.5rem">location_on</i> {{ client.address }}</h5></div>
       <div class="collapsible-body">
-        <span><a :id="'pu-'+client.id" class="waves-effect waves-light btn-large" v-on:click="open_pickup_modal($event)">Pickup</a></span>
+        <span style="padding-right:100px"><a :id="'pu-'+client.id" class="waves-effect waves-light btn-large" v-on:click="open_pickup_modal($event)">Pickup</a></span>
         <span><a :id="'do-'+client.id" class="waves-effect waves-light btn-large" v-on:click="open_dropoff_modal($event)">Dropoff</a></span>
           <table class="striped" style="font-size: 1.5em;">
             <thead>
