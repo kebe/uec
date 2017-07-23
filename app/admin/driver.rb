@@ -1,15 +1,33 @@
 ActiveAdmin.register Driver do
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-permit_params :first_name, :last_name, :phone_number, :email, :password, :active
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
+  permit_params :email, :password, :password_confirmation, :first_name, :last_name, :phone_number, :active
+
+  index do
+    selectable_column
+    id_column
+    column :email
+    column :first_name
+    column :last_name
+    column :phone_number
+    actions
+  end
+
+  filter :email
+  filter :first_name
+  filter :last_name
+  filter :active
+
+  form do |f|
+    f.inputs "Admin Details" do
+      f.input :email
+      f.input :password
+      f.input :password_confirmation
+      f.input :first_name
+      f.input :last_name
+      f.input :phone_number
+      f.input :active
+    end
+    f.actions
+  end
+
 
 end

@@ -8,6 +8,20 @@
   <%= image_tag('/logo_v2.jpg', :style => "float:left;margin-left:20px;") %> 
   <h1 align="center"><i class="material-icons" style="font-size:2.9rem">drive_eta</i> {{ route.name }} Route</h1>
   <hr />
+
+  <ul id="slide-out" class="side-nav">
+    <li><div><%= image_tag('/logo_v2.jpg', :style => "margin-top:20px;margin-left:20px;") %></div> </li>
+    <li><a href="#!"><i class="material-icons">person</i>Driver: {{driver.first_name}} {{driver.last_name}}</a></li>
+    <li><%= link_to "Logout", destroy_driver_session_path, :method => :delete %></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">My Routes</a></li>
+    <ul>
+      <li v-for="client_route in driver.routes"><a class="waves-effect" :href="'/routes/'+client_route.id+'/today_schedule'">{{client_route.name}}</a></li>
+    </ul>
+    
+  </ul>
+  <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons large">menu</i></a>
+
   <ul class="collapsible popout" data-collapsible="accordion">
     <li v-for="client in clients">
       <div class="collapsible-header"><i class="material-icons"></i><h1><strong>{{ client.first_name }} {{ client.last_name }}</strong></h1> <h5><i class="material-icons" style="font-size:2.5rem">location_on</i> <strong>{{ client.address }}</strong></h5></div>
@@ -52,6 +66,7 @@
     </div>
   </div>
 </div>
+
 </script>
 
 
@@ -69,12 +84,14 @@
 <script>
 
 var state = {
-  token: "<%= JWTWrapper.encode({ driver_id: current_driver.id }) if current_driver %>"
+  token: "<%= JWTWrapper.encode({ driver_id: current_driver.id }) if current_driver %>",
+  driver_id: "<%= current_driver.id %>",
+  route_id: "<%= @route.try(:id) %>"
 };
 Vue.component("route", {
   template: "#route-template",
   data: function() {
-    return {route: {}, clients: null};
+    return {route: {}, clients: null, driver: {}};
   },
   created: function() {
     this.fetchData();
@@ -97,12 +114,14 @@ Vue.component("route", {
     fetchData: function() {
       var self = this;
       $.ajax({
-        url: "/api/v1/routes",
+        url: "/api/v1/route/" + state.route_id,
         beforeSend: function(xhr) { xhr.setRequestHeader("Authorization", "Bearer " + state.token); },
         success: function(response) {
           console.log(response);
           self.route = response;
           self.clients = response.clients;
+          self.driver = response.driver;
+          console.log(response.driver);
         }
       });
     },
@@ -113,7 +132,7 @@ Vue.component("route", {
       $.ajax({
         url: "/api/v1/create_operation",
         type: "POST",
-        data: {op_type: type, status: status, driver_id: 1, client_id: targetId, wheelchair: true, helper: "mike" } ,
+        data: {op_type: type, status: status, driver_id: state.driver_id, client_id: targetId, wheelchair: true, helper: "mike" } ,
         beforeSend: function(xhr) { xhr.setRequestHeader("Authorization", "Bearer " + state.token); },
         success: function(response) {
           console.log("operation is a success");

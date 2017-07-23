@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170719152513) do
+ActiveRecord::Schema.define(version: 20170721040633) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -53,7 +53,19 @@ ActiveRecord::Schema.define(version: 20170719152513) do
     t.integer "route_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "contract_id"
+    t.index ["contract_id"], name: "index_clients_on_contract_id"
     t.index ["route_id"], name: "index_clients_on_route_id"
+  end
+
+  create_table "contracts", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "contact_name"
+    t.string "phone_number"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "drivers", force: :cascade do |t|
@@ -115,6 +127,10 @@ ActiveRecord::Schema.define(version: 20170719152513) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "contract_id"
+    t.integer "driver_id"
+    t.index ["contract_id"], name: "index_routes_on_contract_id"
+    t.index ["driver_id"], name: "index_routes_on_driver_id"
   end
 
 end
