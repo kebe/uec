@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721040633) do
+ActiveRecord::Schema.define(version: 20170723164902) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20170721040633) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "contract_id"
+    t.string "goodwill_account_type"
     t.index ["contract_id"], name: "index_clients_on_contract_id"
     t.index ["route_id"], name: "index_clients_on_route_id"
   end
