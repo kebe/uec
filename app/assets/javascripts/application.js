@@ -12,6 +12,7 @@
 //
 //= require vue
 //= require vue-router
+//= require vue-resource
 //= require rails-ujs
 //= require jquery
 //= require materialize

@@ -4,21 +4,23 @@ Rails.application.routes.draw do
     root :to => "routes#default_route"
   end
   #root declaration order is important
-  devise_scope :driver do
-    root to: "devise/sessions#new"
-  end
+  devise_for :drivers
   resources :contracts
   resources :operations
-  devise_for :drivers
-  resources :dropoffs
-  resources :pickups
   resources :clients
-
+  get 'app' => 'routes#app'
   namespace :api do
     namespace :v1 do
+      devise_scope :driver do
+        post "/drivers/create" => "sessions#create"
+        post "/drivers/destroy" => "sessions#destroy"
+      end
       post 'create_operation' => 'operations#create_operation'
+      get 'todays_operations' => 'operations#todays_operations'
       get 'routes' => 'routes#index'
       get 'route/:id' => 'routes#show'
+      get 'drivers/me' => 'drivers#me'
+      
     end
   end
   resources :routes do

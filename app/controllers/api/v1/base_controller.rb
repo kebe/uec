@@ -1,7 +1,8 @@
 class Api::V1::BaseController < ApplicationController
+  before_action :authenticate_driver!  #authenticate_driver before nulling session, that makes it work
   protect_from_forgery with: :null_session
 
-  before_action :destroy_session, :authenticate_driver!
+  
   #skip_before_action :require_login, :current_user, :require_valid_user
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found

@@ -1,9 +1,13 @@
 class RoutesController < InheritedResources::Base
 
   def today_schedule
-    @route = current_driver.routes.where(:routes => {:id => params[:id]}).first
+    #@route = current_driver.routes.where(:routes => {:id => params[:id]}).first
   end
 
+  def app
+
+  end
+  
   def default_route
     @route = current_driver.routes.first
     route_id = @route.try(:id) || 1

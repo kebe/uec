@@ -4,6 +4,11 @@ class Api::V1::OperationsController < Api::V1::BaseController
     render(json: @operation, status: :created)
   end
 
+  def todays_operations
+    @operations = Operation.where(time: DateTime.now.beginning_of_day..DateTime.now.end_of_day)
+    render(json: @operations)
+  end
+
   private
 
     def operation_params
