@@ -26,10 +26,6 @@
                 }
             }
         },
-        mounted: function () {
-            //reinitailize collapsible feature when coming from a different route
-            this.login();
-        },
         methods: {
             login: function () {
                 this.$http.post("/api/v1/drivers/create", {driver_login: {email: this.user.username, password: this.user.password}})
