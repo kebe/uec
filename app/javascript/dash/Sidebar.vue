@@ -1,7 +1,7 @@
 <template>
     <div id="sidebar" class="text-center">
         <ul id="slide-out" class="side-nav">
-            <li><div></div> </li>
+            <li><div><img src="/logo_v2.jpg" class="img-circle" ></div> </li>
             <li><a href="#"><i class="material-icons">person</i>Driver: {{user.first_name + ' ' + user.last_name}}</a></li>
             <li><a href="#" @click.prevent="logout"><i class="material-icons">power_settings_new</i> Logout</a></li>
             <li><div class="divider"></div></li>
@@ -18,7 +18,7 @@
             </ul>
     
         </ul>
-        <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons large">menu</i></a>
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons large" style="margin-top:20px;">menu</i></a>
     </div>
 </template>
 

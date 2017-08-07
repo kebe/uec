@@ -1,6 +1,8 @@
 <template>
     <div id="profile">
         <div>
+            <h1 align="center"><i class="material-icons" style="font-size:2.9rem">directions_railway</i> {{route.name}} Route</h1>
+            <hr />
             <ul class="collapsible popout" data-collapsible="accordion">
                 <li v-for="client in route.clients">
                   <div class="collapsible-header"><i class="material-icons"></i><h1><strong>{{ client.first_name }} {{ client.last_name }}</strong></h1> <h5><i class="material-icons" style="font-size:2.5rem">location_on</i> <strong>{{ client.address }}</strong></h5></div>
@@ -17,12 +19,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="operation in client.operations">
-                            <td>{{operation.op_type}}</td>
-                            <td>{{operation.status}}</td>
-                            <td>{{beepTime(operation.time) }}</td>
-                            <td>{{operation.wheelchair}}</td>
-                          </tr>
+                            <beep v-for="beep in client.operations" :beep="beep" v-bind:key="beep.id" ></beep>
                         </tbody>
                       </table>
                   </div>  
@@ -52,12 +49,16 @@
 
 <script>
     import moment from 'moment';
-    import OperationList from 'dash/OperationList.vue';
+    import Beep from 'dash/Beep.vue';
 
     export default {
         name: 'profile',
         components: {
-            operationList: OperationList,
+            beep: Beep,
+        },
+        mounted: function () {
+            //reinitailize collapsible feature when coming from a different route
+            $('.collapsible').collapsible();
         },
         created: function () {
             this.getUser();

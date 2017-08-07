@@ -2,6 +2,7 @@
     <div id="dashWrap">
         <div class="container">
             <div class="row">
+                <img src="/logo_v2.jpg" class="img-circle" style="float:right;margin:20px;">
                 <div class="col-md-3 col-md-offset-1 col-sm-5">
                     <sidebar></sidebar>
                 </div>

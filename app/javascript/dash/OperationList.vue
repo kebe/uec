@@ -11,7 +11,7 @@
               </tr>
             </thead>
             <tbody>
-                <beep v-for="beep in beeps" :beep="beep" v-bind:key="beep.id" :showUserInfo="showUserInfo"></beep>
+                <beep v-for="beep in beeps" :beep="beep" v-bind:key="beep.id" ></beep>
             </tbody>
           </table>
         </div>
