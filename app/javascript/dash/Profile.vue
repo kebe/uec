@@ -103,7 +103,8 @@
                         .then(function (res) {
                             //this.route = res.body;
                             this.getUser(); 
-                            console.log("operation is a success");
+                            alertify.success("Operation added successfully!");
+                            
                         })
               $('#'+ type + '-modal').modal('close');  
             },

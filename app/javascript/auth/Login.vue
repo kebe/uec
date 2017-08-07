@@ -12,9 +12,6 @@
         <button class="btn btn-lg btn-primary btn-block m-b-15"
             @click="login">Sign in</button>
 
-        <p class="text-center">
-            Don't have an account? <router-link to="/auth/register">Sign up!</router-link>
-        </p>
     </div>
 </template>
 
