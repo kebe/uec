@@ -21,8 +21,8 @@
         data: function() {
             return {
                 user: {
-                    username: "ouskebe@hotmail.com",
-                    password: "urbanexpress"
+                    username: "",
+                    password: ""
                 }
             }
         },
