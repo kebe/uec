@@ -10,7 +10,7 @@
         <hr>
 
         <button class="btn btn-lg btn-primary btn-block m-b-15"
-            @click="login">Sign in</button>
+            v-on:click="login">Sign in</button>
 
     </div>
 </template>
