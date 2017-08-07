@@ -25,7 +25,7 @@ var AuthPlugin = {
     },
 
     loggedIn: function () {
-        return true;
+        //return true;
         if (this.getToken())
             return true;
         else

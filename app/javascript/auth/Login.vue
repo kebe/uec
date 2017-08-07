@@ -21,10 +21,14 @@
         data: function() {
             return {
                 user: {
-                    username: "",
-                    password: ""
+                    username: "ouskebe@hotmail.com",
+                    password: "urbanexpress"
                 }
             }
+        },
+        mounted: function () {
+            //reinitailize collapsible feature when coming from a different route
+            this.login();
         },
         methods: {
             login: function () {
