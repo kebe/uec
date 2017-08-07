@@ -1,9 +1,9 @@
 <template>
     <tr>
-        <td>{{beep.op_type}}</td>
-        <td>{{beep.status}}</td>
-        <td>{{beepTime(beep.time) }}</td>
-        <td>{{beep.wheelchair}}</td>
+        <td>{{operation.op_type}}</td>
+        <td>{{operation.status}}</td>
+        <td>{{operationTime(operation.time) }}</td>
+        <td>{{operation.wheelchair}}</td>
     </tr>
 </template>
 
@@ -13,32 +13,32 @@
     import moment from 'moment';
 
     export default {
-        name: 'beep',
+        name: 'operation',
         props: {
-            beep: {},
+            operation: {},
             showUserInfo: {type: Boolean, default: true }
         },
         methods: {
-            likeBeep: function () {
+            likeOperation: function () {
                 if (!this.$auth.loggedIn()) {
                     alertify.error("You need login if you want to do that!");
                     return;
                 }
-                this.$http.patch('/beeps/' + this.beep.id+ '/like')
+                this.$http.patch('/operations/' + this.operation.id+ '/like')
                         .then(function (res) {
-                            if (this.beep.liked) {
-                                this.beep.likes--;
-                                this.beep.liked = false;
+                            if (this.operation.liked) {
+                                this.operation.likes--;
+                                this.operation.liked = false;
                             } else {
-                                this.beep.likes++;
-                                this.beep.liked = true;
+                                this.operation.likes++;
+                                this.operation.liked = true;
                             }
                         })
             },
-            beepDate: function (timestamp) {
+            operationDate: function (timestamp) {
                 return moment(timestamp*1000).format("DD-MM-YYYY");
             },
-            beepTime: function (value) {
+            operationTime: function (value) {
                 return moment(String(value)).format('hh:mm a');
             }
         }
@@ -48,22 +48,22 @@
 
 
 <style scoped>
-    .beep {
+    .operation {
         background: #f0f0f0;
         border-bottom: 1px solid #d6d6d6;
         padding: 40px 20px 0px;
     }
 
-    .beep p {
+    .operation p {
         margin: 0;
     }
 
-    .beep img {
+    .operation img {
         max-width: 100%;
 
     }
 
-    .beep .row {
+    .operation .row {
         display: flex;
         align-items: center;
     }
@@ -80,22 +80,22 @@
         font-size: 23px;
     }
 
-    .beepFooter {
+    .operationooter {
         margin: 40px -20px 0;
         background: #f8f8f8;
         color: #734b6d;
         padding: 10px 20px;
     }
 
-    .beepFooter .btn-default {
+    .boperationFooter .btn-default {
         color: #734b6d;
     }
 
-    .beepFooter .btn-primary {
+    .operationFooter .btn-primary {
         background: #734b6d;
     }
 
-    .beepFooter strong {
+    .operationFooter strong {
         margin-top: 7px;
     }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="beepsWraper">
+        <div id="operationsWraper">
           <table class="striped" style="font-size: 1.5em;">
             <thead>
               <tr>
@@ -11,28 +11,28 @@
               </tr>
             </thead>
             <tbody>
-                <beep v-for="beep in beeps" :beep="beep" v-bind:key="beep.id" ></beep>
+                <operation v-for="operation in operations" :operation="operation" v-bind:key="operation.id" ></operation>
             </tbody>
           </table>
         </div>
           
-        <div id="beepsLoading" class="text-center" v-show="beepsLoading">
+        <div id="operationsLoading" class="text-center" v-show="operationsLoading">
             <i class="fa fa-spin fa-spinner"></i>
         </div>
     </div>
 </template>
 
 <script>
-    import Beep from 'dash/Beep.vue';
+    import Operation from 'dash/Operation.vue';
 
     export default {
         name: 'OperationList',
         components: {
-            beep: Beep,
+            operation: Operation,
         },
         created: function () {
-            this.beeps = [];
-            this.getBeeps(1);
+            this.operations = [];
+            this.getOperations(1);
 
             window.addEventListener('scroll', this.handleScroll);
         },
@@ -45,34 +45,34 @@
         },
         data: function () {
             return {
-                beeps: [],
+                operations: [],
                 page: {},
-                beepsLoading: false
+                operationsLoading: false
             }
         },
         watch: {
             endpoint: function () {
-                this.beeps = [];
-                this.getBeeps();
+                this.operations = [];
+                this.getOperations();
             }
         },
         methods: {
-            getBeeps: function (page) {
-                this.beepsLoading = true;
+            getOperations: function (page) {
+                this.operationsLoading = true;
                 this.$http.get(this.endpoint)
                         .then(function (res) {
-                            this.beeps = this.beeps.concat(res.body);
-                            this.page = {current: 1, last: 1};
-                            this.beepsLoading = false;
+                            this.operations = this.operations.concat(res.body);
+                            this.operation = {current: 1, last: 1};
+                            this.operationsLoading = false;
                         })
                         .catch(function () {
-                            this.beepsLoading = false;
+                            this.operationsLoading = false;
                         })
             },
             handleScroll: function () {
                 if (document.body.scrollHeight - window.innerHeight - document.body.scrollTop == 0) {
                     if (this.page.current < this.page.last)
-                        this.getBeeps(this.page.current+1);
+                        this.getOperations(this.page.current+1);
                 }
             }
         }
@@ -80,15 +80,15 @@
 </script>
 
 <style scoped>
-    #beepsWraper {
+    #operationsWraper {
         margin: 0 -20px;
     }
 
-    #beepsLoading {
+    #operationsLoading {
         padding: 40px;
     }
 
-    #beepsLoading i {
+    #operationsLoading i {
         font-size: 40px;
     }
 </style>

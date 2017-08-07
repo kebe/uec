@@ -6,7 +6,7 @@ import Login from '../auth/Login.vue';
 import Register from '../auth/Register.vue';
 import Dashboard from '../dash/Dashboard.vue';
 import Dash from '../dash/Dash.vue';
-import Profile from '../dash/Profile.vue';
+import Route from '../dash/Route.vue';
 
 Vue.use(VueRouter);
 
@@ -24,7 +24,7 @@ var router = new VueRouter({
                 },
                 {
                     path: 'route/:id',
-                    component: Profile,
+                    component: Route,
                     meta: { requiresAuth: true }
                 }
             ]

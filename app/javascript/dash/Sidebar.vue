@@ -32,7 +32,7 @@
         data: function () {
             return {
                 user: {},
-                newBeep : "",
+                newOperation : "",
                 loggedIn: this.$auth.loggedIn()
             }
         },
@@ -59,13 +59,13 @@
         border-radius: 6px;
     }
 
-    .beepNowWrap {
+    .operationNowWrap {
         background: #f0f0f0;
         margin: 20px -20px;
         padding: 20px;
     }
 
-    .beepNowWrap textarea {
+    .operationNowWrap textarea {
         background: transparent;
         border: transparent;
         box-shadow: none;

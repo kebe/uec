@@ -1,5 +1,5 @@
 <template>
-    <div id="profile">
+    <div id="route">
         <div>
             <h1 align="center"><i class="material-icons" style="font-size:2.9rem">directions_railway</i> {{route.name}} Route</h1>
             <hr />
@@ -19,7 +19,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                            <beep v-for="beep in client.operations" :beep="beep" v-bind:key="beep.id" ></beep>
+                            <operation v-for="operation in client.operations" :operation="operation" v-bind:key="operation.id" ></operation>
                         </tbody>
                       </table>
                   </div>  
@@ -49,12 +49,12 @@
 
 <script>
     import moment from 'moment';
-    import Beep from 'dash/Beep.vue';
+    import Operation from 'dash/Operation.vue';
 
     export default {
-        name: 'profile',
+        name: 'route',
         components: {
-            beep: Beep,
+            operation: Operation,
         },
         mounted: function () {
             //reinitailize collapsible feature when coming from a different route
@@ -108,7 +108,7 @@
                         })
               $('#'+ type + '-modal').modal('close');  
             },
-            beepTime: function (value) {
+            operationTime: function (value) {
                 return moment(String(value)).format('hh:mm a');
             }
         }
@@ -118,7 +118,7 @@
 
 
 <style scoped>
-    #profile img{
+    #route img{
         max-width: 200px;
     }
 </style>
