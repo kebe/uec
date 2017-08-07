@@ -3,7 +3,7 @@ import App from '../dash/App';
 import Router from './routes.js';
 //import VueResource from 'vue-resource';
 import Auth from '../plugins/Auth.js';
-Vue.config.devtools = true
+//Vue.config.devtools = true
 Vue.use(VueResource);
 Vue.use(Auth);
 
@@ -12,7 +12,7 @@ alertify.defaults.notifier.position = 'top-right';
 
 Vue.http.interceptors.push(function(request, next) {
     if (request.url.includes('api/v1')) {
-        request.url = "http://localhost:3000"+ request.url;
+        request.url = "http://uectransport.herokuapp.com/"+ request.url;
 
         var token = Vue.auth.getToken();
         if (token)
