@@ -74,6 +74,7 @@
         },
         methods: {
             getUser: function () {
+                $('.button-collapse').sideNav('hide');
                 this.$http.get('/api/v1/route/' + this.$route.params.id)
                         .then(function (res) {
                             this.route = res.body;

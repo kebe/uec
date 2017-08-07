@@ -3,7 +3,9 @@
         <td>{{operation.op_type}}</td>
         <td>{{operation.status}}</td>
         <td>{{operationTime(operation.time) }}</td>
-        <td>{{operation.wheelchair}}</td>
+        <td v-if="operation.wheelchair"><i class="material-icons">accessible</i></td>
+        <td v-else="operation.wheelchair"></td>
+        <td><a :id="'op-'+operation.id" class="waves-effect waves-light btn-small" v-on:click="remove_operation($event)">Remove</a></td>
     </tr>
 </template>
 
@@ -40,6 +42,23 @@
             },
             operationTime: function (value) {
                 return moment(String(value)).format('hh:mm a');
+            },
+            remove_operation: function(){
+              if (confirm("Are you sure you want to delete this operation?") == true) {
+                 var targetId;
+                  targetId = event.target.id.split('-')[1]
+                  console.log(event);
+                  this.$http.post('/api/v1/remove_operation/'+targetId)
+                            .then(function (res) {
+                                //this.route = res.body;
+                                alertify.success("Operation removed successfully!");
+                                
+                            })
+                    location.reload();
+              } else {
+                return
+              }
+              
             }
         }
     }

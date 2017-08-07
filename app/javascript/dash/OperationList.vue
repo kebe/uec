@@ -8,6 +8,7 @@
                   <th>Status</th>
                   <th>Time</th>
                   <th>Wheelchair</th>
+                  <th>Action</th>
               </tr>
             </thead>
             <tbody>

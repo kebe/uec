@@ -18,6 +18,7 @@
         mounted: function () {
             //reinitailize sidebar feature when coming from a different route
             $(".button-collapse").sideNav();
+            $('.button-collapse').sideNav('hide');
         },
     }
 </script>

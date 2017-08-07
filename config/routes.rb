@@ -16,6 +16,7 @@ Rails.application.routes.draw do
         post "/drivers/destroy" => "sessions#destroy"
       end
       post 'create_operation' => 'operations#create_operation'
+      post 'remove_operation/:id' => 'operations#remove_operation'
       get 'todays_operations' => 'operations#todays_operations'
       get 'routes' => 'routes#index'
       get 'route/:id' => 'routes#show'
