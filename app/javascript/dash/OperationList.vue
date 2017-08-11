@@ -12,7 +12,7 @@
               </tr>
             </thead>
             <tbody>
-                <operation v-for="operation in operations" :operation="operation" v-bind:key="operation.id" ></operation>
+                <operation v-for="operation in operations" :operation="operation" v-bind:key="operation.id" :showRemoveButton="false" ></operation>
             </tbody>
           </table>
         </div>
@@ -29,12 +29,12 @@
     export default {
         name: 'OperationList',
         components: {
-            operation: Operation,
+            operation: Operation
         },
         created: function () {
             this.operations = [];
             this.getOperations(1);
-
+        
             window.addEventListener('scroll', this.handleScroll);
         },
         destroyed: function () {
@@ -42,7 +42,7 @@
         },
         props: {
             endpoint: {type: String, default: "/api/v1/todays_operations" },
-            showUserInfo: {type: Boolean, default: true }
+            showRemoveButton: {type: Boolean, default: true }
         },
         data: function () {
             return {
@@ -69,6 +69,10 @@
                         .catch(function () {
                             this.operationsLoading = false;
                         })
+            },
+            reloadOps: function(){
+                console.log('reloading');
+                this.getOperations();
             },
             handleScroll: function () {
                 if (document.body.scrollHeight - window.innerHeight - document.body.scrollTop == 0) {

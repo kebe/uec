@@ -9,6 +9,7 @@
                   <div class="collapsible-body">
                     <span style="padding-right:100px"><a :id="'pu-'+client.id" class="waves-effect waves-light btn-large" v-on:click="open_pickup_modal($event)">Pickup</a></span>
                     <span><a :id="'do-'+client.id" class="waves-effect waves-light btn-large" v-on:click="open_dropoff_modal($event)">Dropoff</a></span>
+                    <span style="float:right"><a class="waves-effect  btn-large" :href="'http://maps.google.com/?q='+client.address" >{{ client.address }}</a></span>
                       <table class="striped" style="font-size: 1.5em;">
                         <thead>
                           <tr>
@@ -19,13 +20,14 @@
                           </tr>
                         </thead>
                         <tbody>
-                            <operation v-for="operation in client.operations" :operation="operation" v-bind:key="operation.id" ></operation>
+                            <operation @remove-operation="removeOperation(operation)" v-for="operation in client.operations" :operation="operation" v-bind:key="operation.id" :showRemoveButton="true" ></operation>
                         </tbody>
                       </table>
                   </div>  
                 </li>
               </ul>
 
+              <modal v-for="client in route.clients"></modal>
               <div id="pickup-modal" class="modal">
                 <div class="modal-content">
                   <span style="padding-right:100px"><button class="waves-effect waves-light btn-large" v-on:click="client_status('pickup', 'present', $event)">Present</button></span>
@@ -62,6 +64,10 @@
         },
         created: function () {
             this.getUser();
+            // this.$on('reloadOps', function(message) {
+            //     console.log('reloading');
+            //     this.removeOperation();
+            // })
         },
         data: function () {
             return {
@@ -111,6 +117,19 @@
             },
             operationTime: function (value) {
                 return moment(String(value)).format('hh:mm a');
+            },
+            removeOperation: function(operation){
+              if (confirm("Are you sure you want to delete this operation?") == true) {
+                  this.$http.post('/api/v1/remove_operation/'+operation.id)
+                            .then(function (res) {
+                                this.getUser(); 
+                                alertify.success("Operation removed successfully!");
+                                
+                            })
+              } else {
+                return
+              }
+              
             }
         }
     }

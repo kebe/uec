@@ -5,13 +5,13 @@ class Api::V1::OperationsController < Api::V1::BaseController
   end
 
   def remove_operation
-    @operation = Operation.find(params[:id])
+    @operation = @cur_driver.operations.find(params[:id])
     @result = @operation.destroy
     render(json: @result, status: :created)
   end
 
   def todays_operations
-    @operations = Operation.where(time: DateTime.now.beginning_of_day..DateTime.now.end_of_day)
+    @operations = @cur_driver.operations.where(time: DateTime.now.beginning_of_day..DateTime.now.end_of_day)
     render(json: @operations)
   end
 

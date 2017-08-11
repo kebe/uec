@@ -1,5 +1,5 @@
 class Api::V1::BaseController < ApplicationController
-  before_action :authenticate_driver!  #authenticate_driver before nulling session, that makes it work
+  before_action  :set_driver  #authenticate_driver before nulling session, that makes it work
   protect_from_forgery with: :null_session
 
   
@@ -11,8 +11,11 @@ class Api::V1::BaseController < ApplicationController
     return api_error(status: 404, errors: 'Not found')
   end
   
-  def destroy_session
-    request.session_options[:skip] = true
+  def set_driver
+    authenticate_driver!
+    @cur_driver = current_driver
+    sign_out(current_driver)
+    #request.session_options[:skip] = true
   end
 
 end

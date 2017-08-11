@@ -12,7 +12,8 @@ class Api::V1::SessionsController <  DeviseController
     return invalid_login_attempt unless resource
 
     if resource.valid_password?(params[:driver_login][:password])
-      sign_in("driver", resource)
+      #sign_in("driver", resource)
+      sign_out(resource)
       render :json=> {:success=>true, :auth_token=> JWTWrapper.encode({ driver_id: resource.id }), :email=>resource.email}
       return
     end
