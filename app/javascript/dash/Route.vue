@@ -7,8 +7,8 @@
                 <li v-for="client in route.clients">
                   <div class="collapsible-header"><i class="material-icons"></i><h1><strong>{{ client.first_name }} {{ client.last_name }}</strong></h1> <h5><i class="material-icons" style="font-size:2.5rem">location_on</i> <strong>{{ client.address }}</strong></h5></div>
                   <div class="collapsible-body">
-                    <span style="padding-right:100px"><a :id="'pu-'+client.id" class="waves-effect waves-light btn-large" v-on:click="open_pickup_modal($event)">Pickup</a></span>
-                    <span><a :id="'do-'+client.id" class="waves-effect waves-light btn-large" v-on:click="open_dropoff_modal($event)">Dropoff</a></span>
+                    <span style="padding-right:100px"><a :id="'pu-'+client.id" class="waves-effect waves-light btn-large" v-on:click="open_pickup_modal(client, $event)">Pickup</a></span>
+                    <span><a :id="'do-'+client.id" class="waves-effect waves-light btn-large" v-on:click="open_dropoff_modal(client,$event)">Dropoff</a></span>
                     <span style="float:right"><a class="waves-effect  btn-large" :href="'http://maps.google.com/?q='+client.address" >{{ client.address }}</a></span>
                       <table class="striped" style="font-size: 1.5em;">
                         <thead>
@@ -27,22 +27,8 @@
                 </li>
               </ul>
 
-              <modal v-for="client in route.clients"></modal>
-              <div id="pickup-modal" class="modal">
-                <div class="modal-content">
-                  <span style="padding-right:100px"><button class="waves-effect waves-light btn-large" v-on:click="client_status('pickup', 'present', $event)">Present</button></span>
-                  <span style="padding-right:100px"><button class="waves-effect waves-light btn-large" v-on:click="client_status('pickup', 'not-present', $event)">Not Present</button></span>
-                  <span style="padding-right:100px"><button class="waves-effect waves-light btn-large" v-on:click="client_status('pickup', 'no-show', $event)">No Show</button></span>
-                </div>
-              </div>
-
-              <div id="dropoff-modal" class="modal">
-                <div class="modal-content">
-                  <span style="padding-right:100px"><button class="waves-effect waves-light btn-large" v-on:click="client_status('dropoff', 'present', $event)">Present</button></span>
-                  <span style="padding-right:100px"><button class="waves-effect waves-light btn-large" v-on:click="client_status('dropoff', 'not-present', $event)">Not Present</button></span>
-                  <span><button class="waves-effect waves-light btn-large" v-on:click="client_status('dropoff', 'no-show', $event)">No Show</button></span>
-                </div>
-              </div>
+              <modal @client-status-operation="client_status( ...arguments)" v-for="client in route.clients" v-bind:key="client.id" v-bind:client="client"></modal>
+              
         </div>
     </div>
 </template>
@@ -52,11 +38,13 @@
 <script>
     import moment from 'moment';
     import Operation from 'dash/Operation.vue';
+    import Modal from 'dash/Modal.vue';
 
     export default {
         name: 'route',
         components: {
             operation: Operation,
+            modal: Modal,
         },
         mounted: function () {
             //reinitailize collapsible feature when coming from a different route
@@ -86,34 +74,30 @@
                             this.route = res.body;
                         })
             },
-            open_pickup_modal: function(client_id) {
-              var targetId;
-              targetId = event.currentTarget.id.split('-')[1]; //expecting id with format xx-id
-              console.log(targetId); 
+            open_pickup_modal: function(client) {
+              //var targetId;
+              //targetId = event.currentTarget.id.split('-')[1]; //expecting id with format xx-id
+              //console.log(targetId); 
 
-              $('#pickup-modal div').attr("id", 'pu-modal-'+targetId);
-              $('#pickup-modal').modal('open');
+              //$('#pickupodal div').attr("id", 'pu-modal-'+targetId);
+              $('#pickup-modal-'+client.id).modal('open');
             },
-            open_dropoff_modal: function(client_id) {
-              var targetId;
-              targetId = event.currentTarget.id.split('-')[1]; //expecting id with format xx-id
-              console.log(targetId); 
+            open_dropoff_modal: function(client) {
+              // var targetId;
+              // targetId = event.currentTarget.id.split('-')[1]; //expecting id with format xx-id
+              // console.log(targetId); 
 
-              $('#dropoff-modal div').attr("id", 'do-modal-'+targetId);
-              $('#dropoff-modal').modal('open');
+              //$('#dropoff-modal div').attr("id", 'do-modal-'+targetId);
+              $('#dropoff-modal-'+client.id).modal('open');
             },
-            client_status: function ( type, status, event) {
-              var targetId;
-              targetId = event.currentTarget.parentElement.parentElement.id.split('-')[2]
-              //alert( type + ' Client is ' + status + '!')
-              this.$http.post('/api/v1/create_operation',{op_type: type, status: status, driver_id: this.route.driver_id, client_id: targetId, wheelchair: true, helper: "mike" })
+            client_status: function ( type, status, client) {
+              this.$http.post('/api/v1/create_operation',{op_type: type, status: status, driver_id: this.route.driver_id, client_id: client.id, wheelchair: client.disability, helper: "mike" })
                         .then(function (res) {
-                            //this.route = res.body;
                             this.getUser(); 
                             alertify.success("Operation added successfully!");
                             
                         })
-              $('#'+ type + '-modal').modal('close');  
+              $('#'+type+'-modal-'+client.id).modal('close');  
             },
             operationTime: function (value) {
                 return moment(String(value)).format('hh:mm a');

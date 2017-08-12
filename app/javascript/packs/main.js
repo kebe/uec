@@ -1,4 +1,5 @@
 //import Vue from 'vue';
+Vue.config.devtools = true 
 import App from '../dash/App';
 import Router from './routes.js';
 //import VueResource from 'vue-resource';
