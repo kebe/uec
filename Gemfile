@@ -41,6 +41,8 @@ gem 'webpacker'
 gem 'vuejs-rails'
 gem 'jwt'
 
+gem 'carrierwave', '~> 1.0'
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'seed_dump'

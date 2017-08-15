@@ -7,6 +7,8 @@ class Driver < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :trackable, :validatable
 
+  mount_uploader :worksheet, WorksheetUploader
+
   def full_name
     (last_name || "") + ", " + (first_name || "")
   end

@@ -8,6 +8,7 @@
             <li><router-link :to="'/dashboard'" class="waves-effect">
                     <i class="material-icons">dashboard</i> <h5>Dashboard</h5>
                 </router-link></li>
+            <li><a target="_blank" :href="user_worksheet"><i class="material-icons">receipt</i><h5>Worksheet</h5></a></li>
             <li><a class="subheader"><h5>Service Tickets</h5></a></li>
                 <ul>
                   <li v-for="ticket in user.service_tickets">
@@ -41,6 +42,7 @@
         data: function () {
             return {
                 user: {},
+                user_worksheet: {},
                 newOperation : "",
                 loggedIn: this.$auth.loggedIn()
             }
@@ -55,6 +57,8 @@
                 this.$http.get('/api/v1/drivers/me')
                         .then(function (res) {
                             this.user = res.body;
+                            this.user_worksheet = res.body.worksheet.url
+                            console.log (this.user_worksheet);
                         });
             },
             formatTime: function (value) {

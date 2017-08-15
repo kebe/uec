@@ -1,5 +1,5 @@
 ActiveAdmin.register Driver do
-  permit_params :email, :password, :password_confirmation, :first_name, :last_name, :phone_number, :active
+  permit_params :email, :password, :password_confirmation, :first_name, :last_name, :phone_number, :active, :worksheet
 
   index do
     selectable_column
@@ -8,6 +8,7 @@ ActiveAdmin.register Driver do
     column :first_name
     column :last_name
     column :phone_number
+    column :worksheet
     actions
   end
 
@@ -24,6 +25,7 @@ ActiveAdmin.register Driver do
       f.input :first_name
       f.input :last_name
       f.input :phone_number
+      f.input :worksheet
       f.input :active
     end
     f.actions
