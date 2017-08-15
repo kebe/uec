@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Client:</strong>
+  <%= @service_ticket.client %>
+</p>
+
+<p>
+  <strong>Driver:</strong>
+  <%= @service_ticket.driver %>
+</p>
+
+<p>
+  <strong>Service date:</strong>
+  <%= @service_ticket.service_date %>
+</p>
+
+<p>
+  <strong>Service time:</strong>
+  <%= @service_ticket.service_time %>
+</p>
+
+<p>
+  <strong>Pickup address:</strong>
+  <%= @service_ticket.pickup_address %>
+</p>
+
+<p>
+  <strong>Dropoff address:</strong>
+  <%= @service_ticket.dropoff_address %>
+</p>
+
+<p>
+  <strong>Pickup time:</strong>
+  <%= @service_ticket.pickup_time %>
+</p>
+
+<p>
+  <strong>Dropoff time:</strong>
+  <%= @service_ticket.dropoff_time %>
+</p>
+
+<%= link_to 'Edit', edit_service_ticket_path(@service_ticket) %> |
+<%= link_to 'Back', service_tickets_path %>

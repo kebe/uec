@@ -1,0 +1,57 @@
+<%= form_with(model: service_ticket, local: true) do |form| %>
+  <% if service_ticket.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(service_ticket.errors.count, "error") %> prohibited this service_ticket from being saved:</h2>
+
+      <ul>
+      <% service_ticket.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :client_id %>
+    <%= form.text_field :client_id, id: :service_ticket_client_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :driver_id %>
+    <%= form.text_field :driver_id, id: :service_ticket_driver_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :service_date %>
+    <%= form.date_select :service_date, id: :service_ticket_service_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :service_time %>
+    <%= form.time_select :service_time, id: :service_ticket_service_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pickup_address %>
+    <%= form.text_field :pickup_address, id: :service_ticket_pickup_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dropoff_address %>
+    <%= form.text_field :dropoff_address, id: :service_ticket_dropoff_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pickup_time %>
+    <%= form.text_field :pickup_time, id: :service_ticket_pickup_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dropoff_time %>
+    <%= form.text_field :dropoff_time, id: :service_ticket_dropoff_time %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

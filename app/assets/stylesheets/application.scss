@@ -2,3 +2,12 @@
 //$primary-color: color("blue", "lighten-2") !default;
 //$secondary-color: color("yellow", "base") !default;
 @import "materialize";
+
+span.pick_addr {
+  color: blue;
+  font-weight: bold;
+}
+
+.adjust-loc-icon{
+  font-size:2rem;margin-top:-8px;
+}

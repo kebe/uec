@@ -5,7 +5,7 @@
             <hr />
             <ul class="collapsible popout" data-collapsible="accordion">
                 <li v-for="client in route.clients">
-                  <div class="collapsible-header"><i class="material-icons"></i><h1><strong>{{ client.first_name }} {{ client.last_name }}</strong></h1> <h5><i class="material-icons" style="font-size:2.5rem">location_on</i> <strong>{{ client.address }}</strong></h5></div>
+                  <div class="collapsible-header"><i class="material-icons"></i><h1><strong>{{ client.first_name }} {{ client.last_name }}</strong></h1> <h5><i class="material-icons adjust-loc-icon" style="font-size:2.5rem">location_on</i> <strong>{{ client.address }}</strong></h5></div>
                   <div class="collapsible-body">
                     <span style="padding-right:100px"><a :id="'pu-'+client.id" class="waves-effect waves-light btn-large" v-on:click="open_pickup_modal(client, $event)">Pickup</a></span>
                     <span><a :id="'do-'+client.id" class="waves-effect waves-light btn-large" v-on:click="open_dropoff_modal(client,$event)">Dropoff</a></span>

@@ -7,6 +7,7 @@ import Register from '../auth/Register.vue';
 import Dashboard from '../dash/Dashboard.vue';
 import Dash from '../dash/Dash.vue';
 import Route from '../dash/Route.vue';
+import ServiceTicket from '../dash/ServiceTicket.vue';
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,11 @@ var router = new VueRouter({
                 {
                     path: 'route/:id',
                     component: Route,
+                    meta: { requiresAuth: true }
+                },
+                {
+                    path: 'service-tickets/me',
+                    component: ServiceTicket,
                     meta: { requiresAuth: true }
                 }
             ]

@@ -1,6 +1,7 @@
 class Driver < ApplicationRecord
   has_many :routes
   has_many :operations
+  has_many :service_tickets
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,

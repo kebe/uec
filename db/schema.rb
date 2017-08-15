@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170723164902) do
+ActiveRecord::Schema.define(version: 20170814190806) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -55,6 +55,11 @@ ActiveRecord::Schema.define(version: 20170723164902) do
     t.datetime "updated_at", null: false
     t.integer "contract_id"
     t.string "goodwill_account_type"
+    t.string "client_type"
+    t.decimal "medical_miles"
+    t.decimal "non_medical_miles"
+    t.decimal "medical_escort_hours"
+    t.decimal "non_medical_escort_hours"
     t.index ["contract_id"], name: "index_clients_on_contract_id"
     t.index ["route_id"], name: "index_clients_on_route_id"
   end
@@ -90,16 +95,6 @@ ActiveRecord::Schema.define(version: 20170723164902) do
     t.index ["reset_password_token"], name: "index_drivers_on_reset_password_token", unique: true
   end
 
-  create_table "dropoffs", force: :cascade do |t|
-    t.string "status"
-    t.string "day"
-    t.date "dropoff_date"
-    t.integer "client_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_dropoffs_on_client_id"
-  end
-
   create_table "operations", force: :cascade do |t|
     t.string "op_type"
     t.datetime "time"
@@ -114,16 +109,6 @@ ActiveRecord::Schema.define(version: 20170723164902) do
     t.index ["driver_id"], name: "index_operations_on_driver_id"
   end
 
-  create_table "pickups", force: :cascade do |t|
-    t.string "status"
-    t.string "day"
-    t.date "pickup_date"
-    t.integer "client_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_pickups_on_client_id"
-  end
-
   create_table "routes", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -132,6 +117,33 @@ ActiveRecord::Schema.define(version: 20170723164902) do
     t.integer "driver_id"
     t.index ["contract_id"], name: "index_routes_on_contract_id"
     t.index ["driver_id"], name: "index_routes_on_driver_id"
+  end
+
+  create_table "service_tickets", force: :cascade do |t|
+    t.integer "client_id"
+    t.integer "driver_id"
+    t.date "service_date"
+    t.time "service_time"
+    t.string "pickup_address"
+    t.string "dropoff_address"
+    t.string "pickup_time"
+    t.string "dropoff_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "mileage"
+    t.string "from_zipcode"
+    t.string "to_zipcode"
+    t.boolean "override"
+    t.index ["client_id"], name: "index_service_tickets_on_client_id"
+    t.index ["driver_id"], name: "index_service_tickets_on_driver_id"
+  end
+
+  create_table "zipcode_mappings", force: :cascade do |t|
+    t.string "start_zip"
+    t.string "end_zip"
+    t.string "mileage"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

@@ -8,21 +8,30 @@
             <li><router-link :to="'/dashboard'" class="waves-effect">
                     <i class="material-icons">dashboard</i> <h5>Dashboard</h5>
                 </router-link></li>
+            <li><a class="subheader"><h5>Service Tickets</h5></a></li>
+                <ul>
+                  <li v-for="ticket in user.service_tickets">
+                  <router-link :to="'/service-tickets/me'" class="waves-effect">
+                            <i class="material-icons">directions_railway</i> <h5>{{formatTime(ticket.service_time)}}</h5>
+                        </router-link>
+                  </li>
+                </ul>
             <li><a class="subheader"><h5>My Routes</h5></a></li>
-            <ul>
-              <li v-for="client_route in user.routes">
-              <router-link :to="'/route/'+client_route.id" class="waves-effect">
-                        <i class="material-icons">directions_railway</i> <h5>{{client_route.name}}</h5>
-                    </router-link>
-              </li>
-            </ul>
-    
+                <ul>
+                  <li v-for="client_route in user.routes">
+                  <router-link :to="'/route/'+client_route.id" class="waves-effect">
+                            <i class="material-icons">directions_railway</i> <h5>{{client_route.name}}</h5>
+                        </router-link>
+                  </li>
+                </ul>
+        
         </ul>
         <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons large" style="margin-top:20px;">menu</i></a>
     </div>
 </template>
 
 <script>
+    import moment from 'moment';
     export default {
         name: 'sidebar',
         created: function () {
@@ -48,6 +57,9 @@
                             this.user = res.body;
                         });
             },
+            formatTime: function (value) {
+                return moment(String(value)).format('hh:mm a');
+            }
         }
     }
 </script>
@@ -55,7 +67,7 @@
 <style scoped>
     #sidebar {
         background: #fff;
-        padding: 20px;
+        padding: 200px;
         border-radius: 6px;
     }
 
