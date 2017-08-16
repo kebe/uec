@@ -16,8 +16,8 @@
                     <span><a v-if="!(ticket.pickup_time)" class="waves-effect waves-light btn-large" v-on:click="service_ticket_operation('pickup', ticket)">Picked-up</a></span>
                     <span><a v-if="!(ticket.dropoff_time)" class="waves-effect waves-light btn-large" v-on:click="service_ticket_operation('dropoff', ticket)">Dropped-off</a></span>
                     <div style="float:right">
-                      <a class="waves-effect waves-light btn-large" :href="'http://maps.google.com/?q='+ticket.dropoff_address" >{{ticket.dropoff_address}}</a>
-                      <a class="waves-effect waves-light btn-large" :href="'http://maps.google.com/?q='+ticket.pickup_address" >{{ticket.pickup_address}}</a>
+                      <div><a style="float:right" class="waves-effect waves-light btn-large" :href="'http://maps.google.com/?q='+ticket.dropoff_address" >{{ticket.dropoff_address}}</a></div>
+                      <div><a style="float:right;margin-top:10px;" class="waves-effect waves-light btn-large" :href="'http://maps.google.com/?q='+ticket.pickup_address" >{{ticket.pickup_address}}</a></div>
                     </div>
                     <div>
                         <h5>Picked Up At: <strong>{{formatTime(ticket.pickup_time)}}</strong> </h5>
