@@ -119,10 +119,3 @@
     }
 </script>
 
-
-
-<style scoped>
-    #route img{
-        max-width: 200px;
-    }
-</style>

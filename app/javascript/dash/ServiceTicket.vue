@@ -85,11 +85,3 @@
     }
 </script>
 
-
-
-<style>
-    span.pick_addr {
-        color: blue;
-        font-weight: bold;
-    }
-</style>

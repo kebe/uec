@@ -84,16 +84,3 @@
     }
 </script>
 
-<style scoped>
-    #operationsWraper {
-        margin: 0 -20px;
-    }
-
-    #operationsLoading {
-        padding: 40px;
-    }
-
-    #operationsLoading i {
-        font-size: 40px;
-    }
-</style>

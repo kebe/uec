@@ -27,19 +27,3 @@
         }
     }
 </script>
-
-<style scoped>
-    #dashWrap {
-        min-height: 100%;
-        padding-top: 50px;
-        background: #42275a; /* fallback for old browsers */
-        background: -webkit-linear-gradient(to left, #42275a , #734b6d); /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to left, #42275a , #734b6d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    }
-
-    .mainView {
-        background: #fff;
-        border-radius: 6px;
-        padding: 20px;
-    }
-</style>

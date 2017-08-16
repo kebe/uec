@@ -67,24 +67,3 @@
         }
     }
 </script>
-
-<style scoped>
-    #sidebar {
-        background: #fff;
-        padding: 200px;
-        border-radius: 6px;
-    }
-
-    .operationNowWrap {
-        background: #f0f0f0;
-        margin: 20px -20px;
-        padding: 20px;
-    }
-
-    .operationNowWrap textarea {
-        background: transparent;
-        border: transparent;
-        box-shadow: none;
-        resize: vertical;
-    }
-</style>

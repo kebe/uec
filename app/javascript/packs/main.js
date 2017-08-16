@@ -1,5 +1,5 @@
 //import Vue from 'vue';
-Vue.config.devtools = true 
+//Vue.config.devtools = true 
 import App from '../dash/App';
 import Router from './routes.js';
 //import VueResource from 'vue-resource';
@@ -26,7 +26,7 @@ Vue.http.interceptors.push(function(request, next) {
             response.body.errors.forEach(function (e) {
                 alertify.error(e);
             });
-        }
+        }   
     });
 });
 
