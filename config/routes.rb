@@ -20,6 +20,8 @@ Rails.application.routes.draw do
       get 'todays_operations' => 'operations#todays_operations'
       get 'routes' => 'routes#index'
       get 'route/:id' => 'routes#show'
+      post 'route/:id/finish_leave_route' => 'routes#finish_leave_route'
+      post 'route/:id/finish_return_route' => 'routes#finish_return_route'
       get 'service-tickets/me' => 'service_tickets#me'
       post 'update-service-ticket/:id' => 'service_tickets#update_service_ticket'
       get 'drivers/me' => 'drivers#me'

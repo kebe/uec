@@ -17,10 +17,18 @@
                         </router-link>
                   </li>
                 </ul>
-            <li><a class="subheader"><h5>My Routes</h5></a></li>
+            <li><a class="subheader"><h5>My Leave Routes</h5></a></li>
                 <ul>
                   <li v-for="client_route in user.routes">
-                  <router-link :to="'/route/'+client_route.id" class="waves-effect">
+                  <router-link :to="'/route/'+client_route.id+'/leave'" class="waves-effect">
+                            <i class="material-icons">directions_railway</i> <h5>{{client_route.name}}</h5>
+                        </router-link>
+                  </li>
+                </ul>
+            <li><a class="subheader"><h5>My Return Routes</h5></a></li>
+                <ul>
+                  <li v-for="client_route in user.routes">
+                  <router-link :to="'/route/'+client_route.id+'/return'" class="waves-effect">
                             <i class="material-icons">directions_railway</i> <h5>{{client_route.name}}</h5>
                         </router-link>
                   </li>
@@ -58,7 +66,6 @@
                         .then(function (res) {
                             this.user = res.body;
                             this.user_worksheet = res.body.worksheet.url
-                            console.log (this.user_worksheet);
                         });
             },
             formatTime: function (value) {

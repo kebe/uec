@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  leave_assistant: MyString
+  leave_starting_miles: MyString
+  leave_ending_miles: MyString
+  leave_lic_plate: MyString
+  leave_finish_time: MyString
+  return_assistant: MyString
+  return_starting_miles: MyString
+  return_ending_miles: MyString
+  return_lic_plate: MyString
+  return_finish_time: MyString
+
+two:
+  leave_assistant: MyString
+  leave_starting_miles: MyString
+  leave_ending_miles: MyString
+  leave_lic_plate: MyString
+  leave_finish_time: MyString
+  return_assistant: MyString
+  return_starting_miles: MyString
+  return_ending_miles: MyString
+  return_lic_plate: MyString
+  return_finish_time: MyString

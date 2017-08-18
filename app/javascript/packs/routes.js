@@ -24,7 +24,12 @@ var router = new VueRouter({
                     meta: { requiresAuth: true }
                 },
                 {
-                    path: 'route/:id',
+                    path: 'route/:id/leave',
+                    component: Route,
+                    meta: { requiresAuth: true }
+                },
+                {
+                    path: 'route/:id/return',
                     component: Route,
                     meta: { requiresAuth: true }
                 },

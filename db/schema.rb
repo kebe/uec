@@ -10,15 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170815184834) do
+ActiveRecord::Schema.define(version: 20170817191233) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
-    t.integer "resource_id"
+    t.bigint "resource_id"
     t.string "author_type"
-    t.integer "author_id"
+    t.bigint "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
@@ -50,16 +53,26 @@ ActiveRecord::Schema.define(version: 20170815184834) do
     t.string "address"
     t.string "site"
     t.boolean "disability"
-    t.integer "route_id"
+    t.bigint "route_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "contract_id"
+    t.bigint "contract_id"
     t.string "goodwill_account_type"
     t.string "client_type"
     t.decimal "medical_miles"
     t.decimal "non_medical_miles"
-    t.decimal "medical_escort_hours"
-    t.decimal "non_medical_escort_hours"
+    t.boolean "m_pickup"
+    t.boolean "t_pickup"
+    t.boolean "w_pickup"
+    t.boolean "r_pickup"
+    t.boolean "f_pickup"
+    t.boolean "m_dropoff"
+    t.boolean "t_dropoff"
+    t.boolean "w_dropoff"
+    t.boolean "r_dropoff"
+    t.boolean "f_dropoff"
+    t.boolean "active"
+    t.decimal "escort_hours"
     t.index ["contract_id"], name: "index_clients_on_contract_id"
     t.index ["route_id"], name: "index_clients_on_route_id"
   end
@@ -99,8 +112,8 @@ ActiveRecord::Schema.define(version: 20170815184834) do
   create_table "operations", force: :cascade do |t|
     t.string "op_type"
     t.datetime "time"
-    t.integer "client_id"
-    t.integer "driver_id"
+    t.bigint "client_id"
+    t.bigint "driver_id"
     t.string "status"
     t.string "helper"
     t.boolean "wheelchair"
@@ -110,19 +123,32 @@ ActiveRecord::Schema.define(version: 20170815184834) do
     t.index ["driver_id"], name: "index_operations_on_driver_id"
   end
 
+  create_table "route_trips", force: :cascade do |t|
+    t.bigint "route_id"
+    t.string "trip_type"
+    t.string "assistant"
+    t.decimal "starting_miles"
+    t.decimal "ending_miles"
+    t.string "lic_plate"
+    t.time "finish_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["route_id"], name: "index_route_trips_on_route_id"
+  end
+
   create_table "routes", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "contract_id"
-    t.integer "driver_id"
+    t.bigint "contract_id"
+    t.bigint "driver_id"
     t.index ["contract_id"], name: "index_routes_on_contract_id"
     t.index ["driver_id"], name: "index_routes_on_driver_id"
   end
 
   create_table "service_tickets", force: :cascade do |t|
-    t.integer "client_id"
-    t.integer "driver_id"
+    t.bigint "client_id"
+    t.bigint "driver_id"
     t.date "service_date"
     t.time "service_time"
     t.string "pickup_address"
@@ -147,4 +173,10 @@ ActiveRecord::Schema.define(version: 20170815184834) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "clients", "routes"
+  add_foreign_key "operations", "clients"
+  add_foreign_key "operations", "drivers"
+  add_foreign_key "route_trips", "routes"
+  add_foreign_key "service_tickets", "clients"
+  add_foreign_key "service_tickets", "drivers"
 end
