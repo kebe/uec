@@ -13,7 +13,7 @@ alertify.defaults.notifier.position = 'top-right';
 
 Vue.http.interceptors.push(function(request, next) {
     if (request.url.includes('api/v1')) {
-        request.url = "http://localhost:3000"+ request.url;
+        request.url = process.env.API_URL + request.url;
         //request.url = "https://uectransport.herokuapp.com"+ request.url;
 
         var token = Vue.auth.getToken();
