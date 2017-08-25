@@ -5,13 +5,13 @@
             <li><a href="#" style="font-size:1.3em;"><i class="material-icons">person</i>Driver: {{user.first_name + ' ' + user.last_name}}</a></li>
             <li><a href="#" @click.prevent="logout"><i class="material-icons">power_settings_new</i> <h5>Logout</h5></a></li>
             <li><div class="divider"></div></li>
-            <li><router-link :to="'/dashboard'" class="waves-effect">
+            <li @click="close_sidebar"><router-link :to="'/dashboard'" class="waves-effect">
                     <i class="material-icons">dashboard</i> <h5>Dashboard</h5>
                 </router-link></li>
             <li><a target="_blank" :href="user_worksheet"><i class="material-icons">receipt</i><h5>Worksheet</h5></a></li>
             <li><a class="subheader"><h5>Service Tickets</h5></a></li>
                 <ul>
-                  <li v-for="ticket in user.service_tickets">
+                  <li @click="close_sidebar" v-for="ticket in user.service_tickets">
                   <router-link :to="'/service-tickets/me'" class="waves-effect">
                             <i class="material-icons">directions_railway</i> <h5>{{formatTime(ticket.service_time)}}</h5>
                         </router-link>
@@ -19,7 +19,7 @@
                 </ul>
             <li><a class="subheader"><h5>My Leave Routes</h5></a></li>
                 <ul>
-                  <li v-for="client_route in user.routes">
+                  <li @click="close_sidebar" v-for="client_route in user.routes">
                   <router-link :to="'/route/'+client_route.id+'/leave'" class="waves-effect">
                             <i class="material-icons">directions_railway</i> <h5>{{client_route.name}}</h5>
                         </router-link>
@@ -27,7 +27,7 @@
                 </ul>
             <li><a class="subheader"><h5>My Return Routes</h5></a></li>
                 <ul>
-                  <li v-for="client_route in user.routes">
+                  <li @click="close_sidebar" v-for="client_route in user.routes">
                   <router-link :to="'/route/'+client_route.id+'/return'" class="waves-effect">
                             <i class="material-icons">directions_railway</i> <h5>{{client_route.name}}</h5>
                         </router-link>
@@ -70,6 +70,9 @@
             },
             formatTime: function (value) {
                 return moment(String(value)).format('hh:mm a');
+            },
+            close_sidebar: function(){
+                $('.button-collapse').sideNav('hide');
             }
         }
     }

@@ -4,35 +4,41 @@
             <h1 align="center"><i class="material-icons" style="font-size:2.9rem">directions_railway</i> {{route.name}} Route ({{trip_type}})</h1>
             <hr />
             <ul class="collapsible popout" data-collapsible="accordion">
-                <li v-for="client in clients">
-                  <div class="collapsible-header"><i class="material-icons"></i><h1><strong>{{ client.first_name }} {{ client.last_name }}</strong></h1> <h5><i class="material-icons adjust-loc-icon" style="font-size:2.5rem">location_on</i> <strong>{{ client.address }}</strong></h5></div>
-                  <div class="collapsible-body">
-                    <span style="padding-right:100px"><a class="waves-effect waves-light btn-large" v-on:click="open_pickup_modal(client, $event)">Pickup</a></span>
-                    <span><a class="waves-effect waves-light btn-large" v-on:click="open_dropoff_modal(client,$event)">Dropoff</a></span>
-                    <span style="float:right"><a class="waves-effect  btn-large" :href="'http://maps.google.com/?q='+client.address" >{{ client.address }}</a></span>
-                      <table class="striped" style="font-size: 1.5em;">
-                        <thead>
-                          <tr>
-                              <th>Type</th>
-                              <th>Status</th>
-                              <th>Time</th>
-                              <th>Wheelchair</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            <operation @remove-operation="removeOperation(operation)" v-for="operation in client.operations" :operation="operation" v-bind:key="operation.id" :showRemoveButton="true" ></operation>
-                        </tbody>
-                      </table>
-                  </div>  
-                </li>
-              </ul>
+              <li v-for="client in clients">
+                <div class="collapsible-header"><i class="material-icons"></i><h1><strong>{{ client.first_name }} {{ client.last_name }}</strong></h1> <h5><i class="material-icons adjust-loc-icon" style="font-size:2.5rem">location_on</i> <strong>{{ client.address }}</strong></h5></div>
+                <div class="collapsible-body">
+                  <span style="padding-right:100px"><a class="waves-effect waves-light btn-large" v-on:click="open_pickup_modal(client, $event)">Pickup</a></span>
+                  <span><a class="waves-effect waves-light btn-large" v-on:click="open_dropoff_modal(client,$event)">Dropoff</a></span>
+                  <span style="float:right"><a class="waves-effect  btn-large" :href="'http://maps.google.com/?q='+client.address" >{{ client.address }}</a></span>
+                    <table class="striped" style="font-size: 1.5em;">
+                      <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Time</th>
+                            <th>Wheelchair</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <operation @remove-operation="removeOperation(operation)" v-for="operation in client.operations" :operation="operation" v-bind:key="operation.id" :showRemoveButton="true" ></operation>
+                      </tbody>
+                    </table>
+                </div>  
+              </li>
+            </ul>
 
-              <modal @client-status-operation="client_status( ...arguments)" v-for="client in clients" v-bind:key="client.id" v-bind:client="client"></modal>
+            <modal @client-status-operation="client_status( ...arguments)" v-for="client in clients" v-bind:key="client.id" v-bind:client="client"></modal>
               
         </div>
         <div v-if="route_status(trip_type)">
             <p>
-              <input v-model="finished_route.assistant" type="text" placeholder="assistant name">
+              <div class="input-field">
+                <select v-model="finished_route.assistant">
+                  <option v-for="option in options" v-bind:value="option.value">
+                    {{ option.text }}
+                  </option>
+                </select>
+              </div>
               <input v-model="finished_route.lic_plate"type="text" placeholder="license plate">
               <input v-model="finished_route.starting_miles" type="text" placeholder="starting mileage">
               <input v-model="finished_route.ending_miles"type="text" placeholder="ending mileage">
@@ -81,6 +87,9 @@
             //reinitailize collapsible feature when coming from a different route
             $('.collapsible').collapsible();
         },
+        updated: function(){
+          $('select').material_select();
+        },
         created: function () {
             this.getUser();
         },
@@ -95,7 +104,13 @@
                     lic_plate: "",
                     starting_miles: "",
                     ending_miles: ""
-                }
+                },
+                options: [
+                  { text: 'Choose one', value: '' },
+                  { text: 'Melissa', value: 'Melissa' },
+                  { text: 'Mike', value: 'Mike' },
+                  { text: 'Emily', value: 'Emily' }
+                ]
             }
         },
         watch: {

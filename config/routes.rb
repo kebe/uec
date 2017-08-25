@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :operations
   resources :clients
   get 'app' => 'routes#app'
+
   namespace :api do
     namespace :v1 do
       devise_scope :driver do
@@ -23,6 +24,8 @@ Rails.application.routes.draw do
       post 'route/:id/finish_leave_route' => 'routes#finish_leave_route'
       post 'route/:id/finish_return_route' => 'routes#finish_return_route'
       get 'service-tickets/me' => 'service_tickets#me'
+      get 'service-ticket/:id' => 'service_tickets#show'
+      post 'service-ticket/:id/signature' => 'service_tickets#signature'
       post 'update-service-ticket/:id' => 'service_tickets#update_service_ticket'
       get 'drivers/me' => 'drivers#me'
       

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170817191233) do
+ActiveRecord::Schema.define(version: 20170824032058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,6 +161,7 @@ ActiveRecord::Schema.define(version: 20170817191233) do
     t.string "from_zipcode"
     t.string "to_zipcode"
     t.boolean "override"
+    t.string "signature"
     t.index ["client_id"], name: "index_service_tickets_on_client_id"
     t.index ["driver_id"], name: "index_service_tickets_on_driver_id"
   end

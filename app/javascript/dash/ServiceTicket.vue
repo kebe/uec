@@ -7,6 +7,11 @@
                 <li v-for="ticket in serviceTickets">
                   <div class="collapsible-header">
                     <h3 style="color:green;float:right;">{{service_ticket_status(ticket.pickup_time, ticket.dropoff_time)}}</h3>
+                    <router-link v-if="!(ticket.signature.url)" :to="'/service-ticket/'+ticket.id+'/signature'" class="waves-effect">
+                        <h5><i class="material-icons adjust-loc-icon">border_color</i>Missing Signature</h5>
+                    </router-link>
+                    <div v-else><h5 style="color:green;"><i class="material-icons adjust-loc-icon">check_circle</i>Signed</h5></div>
+
                     <i class="material-icons"></i><h1><strong>{{ticket.client.first_name}} {{ticket.client.last_name}}</strong></h1> 
                     <h5><i class="material-icons adjust-loc-icon">location_on</i> <strong>From Address: <span class="pick_addr">{{ticket.pickup_address}}</span></strong></h5>
                     <h5><i class="material-icons adjust-loc-icon" >access_time</i> <strong>Scheduled Pickup Time: {{formatTime(ticket.service_time)}}</strong></h5>
@@ -35,7 +40,8 @@
 
 <script>
     import moment from 'moment';
-
+    //import SignaturePad from 'signature-pad';
+    //import Sig from '../signature/signature.js'
     export default {
         name: 'serviceTicket',
  

@@ -8,6 +8,7 @@ import Dashboard from '../dash/Dashboard.vue';
 import Dash from '../dash/Dash.vue';
 import Route from '../dash/Route.vue';
 import ServiceTicket from '../dash/ServiceTicket.vue';
+import Signature from '../signature/Signature.vue';
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,11 @@ var router = new VueRouter({
                 {
                     path: 'service-tickets/me',
                     component: ServiceTicket,
+                    meta: { requiresAuth: true }
+                },
+                {
+                    path: 'service-ticket/:id/signature',
+                    component: Signature,
                     meta: { requiresAuth: true }
                 }
             ]

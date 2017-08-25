@@ -3,6 +3,7 @@ class ServiceTicket < ApplicationRecord
   belongs_to :driver
 
   before_save :check_mileage_accrual
+  mount_uploader :signature, SignatureUploader
 
   def check_mileage_accrual
   	cumulative_mileage =  self.client.total_mileage_this_month()
