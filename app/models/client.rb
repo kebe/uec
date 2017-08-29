@@ -4,9 +4,13 @@ class Client < ApplicationRecord
   has_many :operations, -> {where(operations: { time: DateTime.now.beginning_of_day..DateTime.now.end_of_day}) }
   has_many :service_tickets
 
-  validates_inclusion_of :goodwill_account_type, :in => %w( atb ftb uec ), :message => "goodwill account type value is not valid"
-  validates_inclusion_of :site, :in => %w( DAS VR RT WG HW INDV SAGE YAS YASEH WCS ), :message => "site value is not valid"
+  before_update :set_defaults
+  # The set_defaults will only work if the object is new
+
+  validates_inclusion_of :goodwill_account_type, :in => ["", "atb", "ftb", "uec"], :message => "goodwill account type value is not valid"
+  validates_inclusion_of :site, :in => ["", "DAS", "VR", "RT", "WG", "HW", "INDV", "SAGE", "YAS", "YASEH", "WCS"], :message => "site value is not valid"
   validates_inclusion_of :client_type, :in => %w( goodwill franklin_county senior_option ), :message => "client type value is not valid"
+
 
   scope :todays, lambda { |type|
     if type == 'pickup'
@@ -17,12 +21,22 @@ class Client < ApplicationRecord
     where(field.to_sym => true)
   }
 
+ def set_defaults
+    self.medical_miles  ||= 0
+    self.non_medical_miles ||= 0
+    self.escort_hours ||= 0
+  end
+
   def full_name
     (last_name || "") + ", " + (first_name || "")
   end
 
   def total_mileage_this_month
   	self.service_tickets.where(service_date: Date.today.beginning_of_month..Date.today.end_of_month).sum(:mileage)
+  end
+
+  def total_hours_this_month
+    self.service_tickets.where(service_date: Date.today.beginning_of_month..Date.today.end_of_month).sum(:escort_hours)
   end
 
   def total_mile_allotment

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170824032058) do
+ActiveRecord::Schema.define(version: 20170829034054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,8 +153,6 @@ ActiveRecord::Schema.define(version: 20170824032058) do
     t.time "service_time"
     t.string "pickup_address"
     t.string "dropoff_address"
-    t.string "pickup_time"
-    t.string "dropoff_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "mileage"
@@ -162,6 +160,11 @@ ActiveRecord::Schema.define(version: 20170824032058) do
     t.string "to_zipcode"
     t.boolean "override"
     t.string "signature"
+    t.decimal "escort_hours"
+    t.string "ticket_type"
+    t.boolean "approved"
+    t.time "pickup_time"
+    t.time "dropoff_time"
     t.index ["client_id"], name: "index_service_tickets_on_client_id"
     t.index ["driver_id"], name: "index_service_tickets_on_driver_id"
   end

@@ -16,7 +16,6 @@
         name: "Signature",
         created: function(){
           this.getServiceTicket();
-          console.log('4444444');
         },
         mounted: function () {
             var wrapper = document.getElementById("signature-pad"),
@@ -24,7 +23,6 @@
             saveButton = wrapper.querySelector("[data-action=save]"),
             canvas = wrapper.querySelector("canvas"),
             signaturePad;
-            console.log('sgdsgdsgsgds');
 
         // Adjust canvas coordinate space taking into account pixel ratio,
         // to make it look crisp on mobile devices.

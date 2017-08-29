@@ -33,31 +33,42 @@ permit_params :first_name, :last_name, :goodwill_account_type, :medicaid_number,
 
   form do |f|
     f.inputs "Clients" do
+      f.input :route_id, :label => 'Route', :as => :select, :collection => Route.all.map{|r| ["#{r.name}", r.id]}
+      f.input :contract_id, :label => 'Contract', :as => :select, :collection => Contract.all.map{|c| ["#{c.name}", c.id]}
       f.input :client_type, :label => 'Account Type', :as => :select, :collection =>  %w( goodwill franklin_county senior_option )
       f.input :first_name
       f.input :last_name
-      f.input :goodwill_account_type, :label => 'GoodWill Type', :as => :select, :collection => %w( atb ftb uec )
       f.input :medicaid_number
       f.input :address
       f.input :site , :label => 'Site', :as => :select, :collection =>  %w( DAS VR RT WG HW INDV SAGE YAS YASEH WCS )
       f.input :disability
-      f.input :route_id, :label => 'Route', :as => :select, :collection => Route.all.map{|r| ["#{r.name}", r.id]}
-      f.input :contract_id, :label => 'Contract', :as => :select, :collection => Contract.all.map{|c| ["#{c.name}", c.id]}
+      f.input :active
+    end
+
+    f.inputs 'Monthly Allottments' do
       f.input :medical_miles
       f.input :non_medical_miles
       f.input :escort_hours
-      f.input :m_pickup
-      f.input :t_pickup
-      f.input :w_pickup
-      f.input :r_pickup
-      f.input :f_pickup
-      f.input :m_dropoff
-      f.input :t_dropoff
-      f.input :w_dropoff
-      f.input :r_dropoff
-      f.input :f_dropoff
-      f.input :active
     end
+    f.inputs 'For Goodwill Accounts' do
+      f.input :goodwill_account_type, :label => 'GoodWill Type', :as => :select, :collection => %w( atb ftb uec )
+    end
+    f.inputs 'Pickup Service Days' do
+      f.input :m_pickup, :label => 'Monday Pickup'
+      f.input :t_pickup, :label => 'Tuesday Pickup'
+      f.input :w_pickup, :label => 'Wednesday Pickup'
+      f.input :r_pickup, :label => 'Thursday Pickup'
+      f.input :f_pickup, :label => 'Friday Pickup'
+    end
+
+    f.inputs 'Dropoff Service Days' do 
+      f.input :m_dropoff, :label => 'Monday Dropoff'
+      f.input :t_dropoff, :label => 'Tuesday Dropoff'
+      f.input :w_dropoff, :label => 'Wednesday Dropoff'
+      f.input :r_dropoff, :label => 'Thursday Dropoff'
+      f.input :f_dropoff, :label => 'Friday Dropoff'
+    end
+  
     f.actions
   end
 
