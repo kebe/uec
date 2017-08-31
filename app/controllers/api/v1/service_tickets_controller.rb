@@ -1,7 +1,7 @@
 class Api::V1::ServiceTicketsController < Api::V1::BaseController
   #skip_before_action :set_driver
   def me
-  	@service_tickets = @cur_driver.service_tickets.includes(:client)
+  	@service_tickets = @cur_driver.todays_service_tickets.includes(:client)
     render(json: @service_tickets.to_json( include: [:client]))
   end
 

@@ -78,7 +78,7 @@ permit_params :client_id, :driver_id, :service_date, :service_time, :pickup_addr
         end
         row :override
         row :signature do |service_ticket|
-          image_tag service_ticket.signature.url
+          image_tag service_ticket.signature.url || ""
         end
       end
       active_admin_comments

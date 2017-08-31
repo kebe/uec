@@ -23,6 +23,7 @@ permit_params :assistant, :starting_miles, :ending_miles, :lic_plate, :finish_ti
     column :finish_time, :sortable => :finish_time do |obj|
       obj.finish_time.try(:localtime).try(:strftime, "%I:%M %p")
     end
+    column :created_at
     actions
   end
 end

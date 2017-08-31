@@ -18,8 +18,8 @@
                     <h5><i class="material-icons adjust-loc-icon">location_on</i> <strong>To Address: <span class="pick_addr">{{ticket.dropoff_address}}</span></strong></h5>
                   </div>
                   <div class="collapsible-body">
-                    <span><a v-if="!(ticket.pickup_time)" class="waves-effect waves-light btn-large" v-on:click="service_ticket_operation('pickup', ticket)">Picked-up</a></span>
-                    <span><a v-if="!(ticket.dropoff_time)" class="waves-effect waves-light btn-large" v-on:click="service_ticket_operation('dropoff', ticket)">Dropped-off</a></span>
+                    <span><a v-if="ticket.pickup_time == '2000-01-01T00:00:00.000Z'" class="waves-effect waves-light btn-large" v-on:click="service_ticket_operation('pickup', ticket)">Picked-up</a></span>
+                    <span><a v-if="(ticket.dropoff_time=='2000-01-01T00:00:00.000Z')" class="waves-effect waves-light btn-large" v-on:click="service_ticket_operation('dropoff', ticket)">Dropped-off</a></span>
                     <div style="float:right">
                       <div><a style="float:right" class="waves-effect waves-light btn-large" :href="'http://maps.google.com/?q='+ticket.dropoff_address" >{{ticket.dropoff_address}}</a></div>
                       <div><a style="float:right;margin-top:10px;" class="waves-effect waves-light btn-large" :href="'http://maps.google.com/?q='+ticket.pickup_address" >{{ticket.pickup_address}}</a></div>
@@ -70,7 +70,7 @@
                         })
             },
             formatTime: function (value) {
-              if (value == ""){
+              if (value == "" || value =="2000-01-01T00:00:00.000Z"){
                 return "";
               }
               return moment(String(value)).format('hh:mm a');
@@ -83,7 +83,7 @@
                         })
             },
             service_ticket_status: function (pickup, dropoff) {
-              if (pickup != "" && dropoff != ""){
+              if (pickup != "" && dropoff != "" && pickup !="2000-01-01T00:00:00.000Z" && dropoff !="2000-01-01T00:00:00.000Z"){
                 return "completed"
               }
             }

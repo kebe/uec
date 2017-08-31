@@ -11,7 +11,7 @@
             <li><a target="_blank" :href="user_worksheet"><i class="material-icons">receipt</i><h5>Worksheet</h5></a></li>
             <li><a class="subheader"><h5>Service Tickets</h5></a></li>
                 <ul>
-                  <li @click="close_sidebar" v-for="ticket in user.service_tickets">
+                  <li @click="close_sidebar" v-for="ticket in user.todays_service_tickets">
                   <router-link :to="'/service-tickets/me'" class="waves-effect">
                             <i class="material-icons">directions_railway</i> <h5>{{formatTime(ticket.service_time)}}</h5>
                         </router-link>

@@ -30,23 +30,43 @@
             <modal @client-status-operation="client_status( ...arguments)" v-for="client in clients" v-bind:key="client.id" v-bind:client="client"></modal>
               
         </div>
-        <div v-if="route_status(trip_type)">
+
+        <div v-if="route_status()">
             <p>
               <div class="input-field">
-                <select v-model="finished_route.assistant">
-                  <option v-for="option in options" v-bind:value="option.value">
-                    {{ option.text }}
-                  </option>
-                </select>
+                <input v-model="finished_route.lic_plate"type="text" id="lic_plate">
+                <label for="lic_plate">License Plate</label>
               </div>
-              <input v-model="finished_route.lic_plate"type="text" placeholder="license plate">
-              <input v-model="finished_route.starting_miles" type="text" placeholder="starting mileage">
-              <input v-model="finished_route.ending_miles"type="text" placeholder="ending mileage">
+              <div class="input-field">
+                <input v-model="finished_route.starting_miles" type="text" id="start_miles">
+                <label for="start_miles">Starting Miles</label>
+              </div>
+
+              <div class="input-field">
+                <input v-model="finished_route.ending_miles" type="text" id="end_miles">
+                <label for="end_miles">Ending Miles</label>
+              </div>
+
+              <div class="input-field">
+                <input class="with-gap" name="group1" type="radio" id="Melissa" value="Melissa" v-model="finished_route.assistant">
+                <label for="Melissa">Melissa</label>
+                <br>
+                <input class="with-gap" name="group1" type="radio" id="Emily" value="Emily" v-model="finished_route.assistant">
+                <label for="Emily">Emily</label>
+                
+                <br>
+                <input class="with-gap" name="group1" type="radio" id="Mike" value="Mike" v-model="finished_route.assistant">
+                <label for="Mike">Mike</label>
+                <br>
+                <p>
+                <span>Picked: <strong> {{ finished_route.assistant }}</strong></span>
+                </p>
+              </div>
             </p>
             <button @click="finish_route" class="waves-effect  btn-large">Finish Route</button>
         </div>
         <div v-else> 
-            <div v-if="trip_type='leave'">
+            <div v-if="trip_type=='leave'">
               <ul class="collection with-header">
                 <li class="collection-header"><h4>Finished Route Information</h4></li>
                 <li class="collection-item">Assistant Name: {{route.todays_leave_route_trips[0].assistant}}</li>
@@ -60,7 +80,7 @@
                 <ul class="collection with-header">
                   <li class="collection-header"><h4>Finished Route Information</h4></li>
                   <li class="collection-item">Assistant Name: {{route.todays_return_route_trips[0].assistant}}</li>
-                  <li class="collection-item">License Plate: {{route.todays_return_route_trips[0].lic_plate}}</li>
+                  <li class="collection-item">License Plate:  {{route.todays_return_route_trips[0].lic_plate}}</li>
                   <li class="collection-item">Starting Mileage: {{route.todays_return_route_trips[0].starting_miles}}</li>
                   <li class="collection-item">Ending Mileage: {{route.todays_return_route_trips[0].ending_miles}}</li>
                   <li class="collection-item">Finish Time: {{formatTime(route.todays_return_route_trips[0].finish_time)}}</li>
@@ -98,7 +118,7 @@
                 route: {todays_leave_route_trips: [{assistant: ""}, {lic_plate: ""}, {starting_miles: ""}, {ending_miles: ""}, {finish_time: ""} ], 
                         todays_return_route_trips: [{assistant: ""}, {lic_plate: ""}, {starting_miles: ""}, {ending_miles: ""}, {finish_time: ""} ]},
                 clients: {},
-                trip_type: {},
+                trip_type: "",
                 finished_route: {
                     assistant: "",
                     lic_plate: "",
@@ -106,7 +126,6 @@
                     ending_miles: ""
                 },
                 options: [
-                  { text: 'Choose one', value: '' },
                   { text: 'Melissa', value: 'Melissa' },
                   { text: 'Mike', value: 'Mike' },
                   { text: 'Emily', value: 'Emily' }
@@ -123,6 +142,7 @@
                 this.$http.get('/api/v1/route/' + this.$route.params.id)
                         .then(function (res) {
                             this.route = res.body;
+                            //this.finished_route = {assistant: "", lic_plate: "", starting_miles: "", ending_miles: "", finish_time: ""} ;
                             this.trip_type = this.$route.path.split('/')[3];
                             if (this.trip_type == 'leave'){
                               this.clients = this.route.todays_pickup_clients;
@@ -175,15 +195,14 @@
                             
                         })
             },
-            route_status: function(trip_type){
-              
-              if (trip_type == "leave"){
+            route_status: function(){
+              if (this.trip_type == "leave"){
                 if (this.route.todays_leave_route_trips === undefined){
                   return 1;
                 }
                 return this.route.todays_leave_route_trips.length == 0
               }
-              else if (trip_type == "return"){
+              else if (this.trip_type == "return"){
                 if (this.route.todays_return_route_trips === undefined){
                   return 1;
                 }
