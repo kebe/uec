@@ -23,9 +23,9 @@ permit_params :client_id, :driver_id, :service_date, :service_time, :pickup_addr
       obj.service_time.try(:localtime).try(:strftime, "%I:%M %p")
     end
     column :pickup_address
-    column :from_zipcode
+    column "From Zip", :from_zipcode
     column :dropoff_address
-    column :to_zipcode
+    column "To Zip", :to_zipcode
     column :pickup_time, :sortable => :pickup_time do |obj|
       obj.pickup_time.try(:localtime).try(:strftime, "%I:%M %p")
     end
@@ -54,5 +54,34 @@ permit_params :client_id, :driver_id, :service_date, :service_time, :pickup_addr
       f.input :override
     end
     f.actions
+  end
+
+  ActiveAdmin.register ServiceTicket do
+    show do
+      attributes_table do
+        row :ticket_type
+        row :client
+        row :driver
+        row :service_date                    
+        row :service_time do |service_ticket|
+          service_ticket.service_time.try(:localtime).try(:strftime, "%I:%M %p")
+        end
+        row :pickup_address
+        row :from_zipcode
+        row :dropoff_address
+        row :to_zipcode
+        row :pickup_time do |service_ticket|
+          service_ticket.pickup_time.try(:localtime).try(:strftime, "%I:%M %p")
+        end
+        row :dropoff_time do |service_ticket|
+          service_ticket.dropoff_time.try(:localtime).try(:strftime, "%I:%M %p")
+        end
+        row :override
+        row :signature do |service_ticket|
+          image_tag service_ticket.signature.url
+        end
+      end
+      active_admin_comments
+    end
   end
 end
